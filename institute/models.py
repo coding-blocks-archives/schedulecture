@@ -51,6 +51,7 @@ class Batch(models.Model):
 
 
 class Lecture(models.Model):
+	code = models.CharField(max_length = 20)
 	batch = models.ForeignKey(Batch)
 	hall = models.ForeignKey(LectureHall)
 	date = models.DateField(null = True, blank = True)
