@@ -8,7 +8,7 @@ class BatchAdmin(admin.ModelAdmin):
 	list_display = ('code', 'course', 'center', 'capacity')
 
 class LectureAdmin(admin.ModelAdmin):
-	list_display = ('batch', 'hall', 'teacher', 'date', 'start_time', 'end_time')
+	list_display = ('code', 'batch', 'hall', 'teacher', 'date', 'start_time', 'end_time')
 
 	def teacher(self, lecture):
 		return lecture.batch.teacher
