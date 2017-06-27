@@ -20,7 +20,8 @@
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
   }
-  #calendar {
+  #calendar
+  {
     max-width: 900px;
     margin: 0 auto;
   }
@@ -79,37 +80,39 @@
       // console.log(AllEvents[0].events);
       // AllEvents = AllEvents[0].events;
       // console.log(AllEvents.length);
+      /* array of all events */
        var obj = [];
-       var temp = {};
        for(var i = 0 ; i < AllEvents.length; ++i)
        {
-           temp.title = AllEvents[i].title;
-           temp.start = AllEvents[i].start._d;
-          // temp.id = AllEvents[i].id;
-           temp.end = AllEvents[i].end;
-           obj.push(temp);
+           obj.push({
+               title : AllEvents[i].title,
+               start : AllEvents[i].start._d,
+               end : AllEvents[i].end
+           });
        }
 
-       /*console.log("Object");
+       /*console.log("Events");
        console.log(obj);*/
 
-        $.get('/save', {Lectures : JSON.stringify(obj)}, function (data, status) {
-            changesLeft = false;
-            /*console.log(data);
-            console.log(status);*/
-            alert("Saved");
-          //  location.reload();
+        $.ajax({
+            url : '/save',
+            type : 'post',
+            data : JSON.stringify(obj),
+            async: true,
+            processData: false,
+            success : function (data, status) {
+                // Data from the server.
+                console.log(data);
+            }
         });
+
     });
-
-
     $(window).bind('beforeunload', function(){
         // Prompting user if any changes are left to be saved into the DB.
         if(changesLeft)
             return 'Are you sure you want to leave?';
 
     });
-
   });
 </script>
 
